@@ -30,8 +30,18 @@ data "aws_partition" "current" {}
 
 data "aws_caller_identity" "current" {}
 
+# security/policy
+resource "aws_s3_bucket_public_access_block" "block-public" {
+  bucket                  = aws_s3_bucket.terraform-state.id
+  block_public_acls       = true
+  block_public_policy     = true
+  ignore_public_acls      = true
+  restrict_public_buckets = true
+}
+
 resource "aws_s3_bucket_policy" "bucket-policy" {
-  bucket = aws_s3_bucket.terraform-state.id
+  depends_on = [aws_s3_bucket_public_access_block.block-public]
+  bucket     = aws_s3_bucket.terraform-state.id
   policy = jsonencode({
     Statement = [{
       Action = [
@@ -51,4 +61,37 @@ resource "aws_s3_bucket_policy" "bucket-policy" {
     }]
     Version = "2012-10-17"
   })
+}
+
+data "aws_region" "current" {}
+
+locals {
+  aws_region  = data.aws_region.current.name
+  bucket_name = aws_s3_bucket.terraform-state.id
+}
+
+# cleanup script
+resource "local_file" "empty" {
+  depends_on = [aws_s3_bucket.terraform-state]
+  content = join("\n", [
+    "#!/bin/sh",
+    "aws s3api delete-objects \\",
+    "  --region ${local.aws_region} --bucket ${local.bucket_name} \\",
+    "  --delete \"$(aws s3api list-object-versions \\",
+    "    --region ${local.aws_region} --bucket ${local.bucket_name} \\",
+    "    --query='{Objects: Versions[].{Key:Key,VersionId:VersionId}}' \\",
+    "    --output json)\"",
+    "echo $?",
+    "exit 0"
+  ])
+  filename        = "${path.cwd}/empty.sh"
+  file_permission = "0700"
+}
+
+resource "null_resource" "empty" {
+  depends_on = [local_file.empty]
+  provisioner "local-exec" {
+    when    = destroy
+    command = "${path.cwd}/empty.sh"
+  }
 }
