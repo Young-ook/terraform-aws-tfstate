@@ -84,7 +84,7 @@ resource "local_file" "empty" {
     "echo $?",
     "exit 0"
   ])
-  filename        = "${path.cwd}/empty.sh"
+  filename        = "${path.module}/empty.sh"
   file_permission = "0700"
 }
 
@@ -92,6 +92,6 @@ resource "null_resource" "empty" {
   depends_on = [local_file.empty]
   provisioner "local-exec" {
     when    = destroy
-    command = "${path.cwd}/empty.sh"
+    command = "${path.module}/empty.sh"
   }
 }

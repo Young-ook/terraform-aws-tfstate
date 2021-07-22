@@ -1,9 +1,12 @@
 output "backend" {
-  description = "Terraform state backend"
-  value = {
-    bucket_name         = aws_s3_bucket.terraform-state.id
-    bucket_arn          = aws_s3_bucket.terraform-state.arn
-    dynamodb_table_name = aws_dynamodb_table.terraform-lock.id
-    dynamodb_table_arn  = aws_dynamodb_table.terraform-lock.arn
+  description = "Terraform state backend configuration"
+  value = <<-EOT
+  terraform {
+    backend "s3" {
+      region = "${local.aws_region}"
+      bucket = "${local.bucket_name}"
+      key    = "state"
+    }
   }
+  EOT
 }
