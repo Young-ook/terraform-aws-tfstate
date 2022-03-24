@@ -1,10 +1,10 @@
 output "backend" {
   description = "Terraform state backend configuration"
-  value = <<-EOT
+  value       = <<-EOT
   terraform {
     backend "s3" {
-      region = "${local.aws_region}"
-      bucket = "${local.bucket_name}"
+      region = "${module.aws.region.name}"
+      bucket = "${module.terraform-state.bucket.id}"
       key    = "state"
     }
   }
