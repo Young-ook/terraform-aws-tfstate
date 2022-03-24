@@ -17,6 +17,22 @@ variable "dynamodb_write_capacity" {
   default     = 5
 }
 
+variable "s3_versioning" {
+  description = "A configuration to enable object version control"
+  type        = string
+  default     = null
+  validation {
+    condition     = var.s3_versioning == null ? true : contains(["Enabled", "Suspended"], var.s3_versioning)
+    error_message = "Allowed values: `Enabled`, `Suspended`."
+  }
+}
+
+variable "force_destroy" {
+  description = "A boolean that indicates all objects should be deleted without error"
+  type        = bool
+  default     = false
+}
+
 ### tags
 variable "tags" {
   description = "The key-value maps for tagging"

@@ -13,4 +13,6 @@ module "tfstate-backend" {
   name                    = var.name
   dynamodb_read_capacity  = var.dynamodb_read_capacity
   dynamodb_write_capacity = var.dynamodb_write_capacity
+  s3_versioning           = var.s3_versioning
+  force_destroy           = var.force_destroy
 }
