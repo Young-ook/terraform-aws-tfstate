@@ -1,7 +1,5 @@
 # Terraform
-
-Terraform is an open-source infrastructure as code software tool created by HashiCorp. Users define and provide both cloud and on-premises infrastructure using a declarative configuration language known as HashiCorp Configuration Language (HCL), or optionally JSON.
-Users can version, reuse, and share these terraform configuration files and also, use a consistent workflow to provision and manage all of their infrastructure throughout its lifecycle.
+Terraform is an open-source infrastructure as code software tool created by HashiCorp. Users define and provide both cloud and on-premises infrastructure using a declarative configuration language known as HashiCorp Configuration Language (HCL), or optionally JSON. Users can version, reuse, and share these terraform configuration files and also, use a consistent workflow to provision and manage all of their infrastructure throughout its lifecycle.
 
 ![terraform-iac-concept](../../images/terraform-iac-concept.png)
 
@@ -58,3 +56,6 @@ tfenv use 0.11.14
 tfenv install latest
 tfenv use 0.12.18
 ```
+
+# Addtional Resources
+- [Terraform Workflow Automation using Atlantis](https://www.runatlantis.io/guide/#getting-started)
