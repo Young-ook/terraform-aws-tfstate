@@ -1,10 +1,4 @@
 ### terraform backend
-variable "name" {
-  description = "The resource name for terraform backend"
-  type        = string
-  default     = "tfbackend"
-}
-
 variable "dynamodb_read_capacity" {
   description = "The read_capacity value for the DynamoDB table to store lock object"
   type        = number
@@ -31,6 +25,13 @@ variable "force_destroy" {
   description = "A boolean that indicates all objects should be deleted without error"
   type        = bool
   default     = false
+}
+
+### description
+variable "name" {
+  description = "The resource name"
+  type        = string
+  default     = null
 }
 
 ### tags

@@ -6,8 +6,8 @@ module "aws" {
 # database/dynamodb
 # table for lock info storage
 resource "aws_dynamodb_table" "terraform-lock" {
-  name           = local.table-name
-  tags           = merge(local.table-nametag, local.default-tags, var.tags)
+  name           = local.name
+  tags           = merge(local.default-tags, var.tags)
   read_capacity  = var.dynamodb_read_capacity
   write_capacity = var.dynamodb_write_capacity
   hash_key       = "LockID"
@@ -27,8 +27,8 @@ resource "aws_dynamodb_table" "terraform-lock" {
 module "terraform-state" {
   source        = "Young-ook/sagemaker/aws//modules/s3"
   version       = "0.4.5"
-  name          = local.bucket-name
-  tags          = merge(local.default-tags, local.bucket-nametag, var.tags)
+  name          = local.name
+  tags          = merge(local.default-tags, var.tags)
   versioning    = var.s3_versioning
   force_destroy = var.force_destroy
 }
