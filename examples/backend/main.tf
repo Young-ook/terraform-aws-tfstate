@@ -1,15 +1,16 @@
-# Complete example
+### Terraform Remote Backend
 
 terraform {
-  required_version = ">= 0.13"
+  required_version = "~> 1.0"
 }
 
 provider "aws" {
   region = var.aws_region
 }
 
-module "tfstate-backend" {
-  source                  = "Young-ook/tfstate-backend/aws"
+module "tfstate" {
+  source                  = "Young-ook/tfstate/aws"
+  version                 = "2.0.0"
   name                    = var.name
   dynamodb_read_capacity  = var.dynamodb_read_capacity
   dynamodb_write_capacity = var.dynamodb_write_capacity

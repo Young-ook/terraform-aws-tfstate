@@ -26,9 +26,9 @@ resource "aws_dynamodb_table" "terraform-lock" {
 # object storage for storing terraform state
 module "terraform-state" {
   source        = "Young-ook/sagemaker/aws//modules/s3"
-  version       = "0.1.0"
+  version       = "0.4.5"
   name          = local.bucket-name
-  tags          = merge(local.bucket-nametag, local.default-tags, var.tags)
+  tags          = merge(local.default-tags, local.bucket-nametag, var.tags)
   versioning    = var.s3_versioning
   force_destroy = var.force_destroy
 }
