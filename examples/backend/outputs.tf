@@ -1,3 +1,3 @@
 output "backend" {
-  value = module.tfstate-backend.backend
+  value = module.tfstate.backend
 }
