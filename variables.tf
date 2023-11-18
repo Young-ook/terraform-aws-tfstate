@@ -1,18 +1,18 @@
 ### terraform backend
 variable "dynamodb_read_capacity" {
-  description = "The read_capacity value for the DynamoDB table to store lock object"
+  description = "Amazon DynamoDB read capacity value for lock object"
   type        = number
   default     = 5
 }
 
 variable "dynamodb_write_capacity" {
-  description = "The write_capacity value for the DynamoDB table to store lock object"
+  description = "Amazon DynamoDB write capacity value for lock object"
   type        = number
   default     = 5
 }
 
 variable "s3_versioning" {
-  description = "A configuration to enable object version control"
+  description = "Enable object version control"
   type        = string
   default     = null
   validation {
@@ -22,7 +22,13 @@ variable "s3_versioning" {
 }
 
 variable "force_destroy" {
-  description = "A boolean that indicates all objects should be deleted without error"
+  description = "Allow to delete all objects without error"
+  type        = bool
+  default     = false
+}
+
+variable "generate_config_file" {
+  description = "Allow to create a terraform backend configuration file"
   type        = bool
   default     = false
 }
