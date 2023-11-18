@@ -26,7 +26,7 @@ There are two areas of Terraform's behavior that are determined by the backend:
 + If you and your team are using Terraform to manage meaningful infrastructure, we recommend using the [remote backend](https://www.terraform.io/docs/language/settings/backends/remote.html).
 
 ## Examples
-- [Terraform Backend Type: S3](https://github.com/Young-ook/terraform-aws-tfstate-backend/blob/main/examples/backend)
+- [Terraform Backend Type: S3](https://github.com/Young-ook/terraform-aws-tfstate/tree/main/examples/backend)
 
 ## Getting started
 ### AWS CLI
