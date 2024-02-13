@@ -10,7 +10,7 @@ provider "aws" {
 
 module "tfstate" {
   source                  = "Young-ook/tfstate/aws"
-  version                 = "2.0.0"
+  version                 = "2.0.1"
   name                    = var.name
   dynamodb_read_capacity  = var.dynamodb_read_capacity
   dynamodb_write_capacity = var.dynamodb_write_capacity
